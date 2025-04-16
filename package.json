@@ -1,0 +1,25 @@
+{
+  "name": "@codebucket/mail-transport",
+  "version": "1.0.2",
+  "description": "Custom Nodemailer transport ",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "nodemailer",
+    "transport"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "@types/nodemailer": "^6.4.17",
+    "axios": "^1.6.8",
+    "form-data": "^4.0.0",
+    "nodemailer": "^6.9.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.2"
+  }
+}
