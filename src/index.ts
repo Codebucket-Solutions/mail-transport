@@ -6,20 +6,11 @@ import MailMessage from "nodemailer/lib/mailer/mail-message";
 
 export class MailTransport implements Transport {
     name = 'MailTransport';
-    version = '1.0.2';
+    version = '1.0.4';
 
     private options: TransportOptions;
 
     constructor(options: TransportOptions) {
-        if (!options.url) {
-            throw new Error('Transport requires an API URL.');
-        }
-        if (!options.senderId) {
-            throw new Error('Transport requires a Sender ID.');
-        }
-        if (!options.accessToken) {
-            throw new Error('Transport requires an access token.');
-        }
         this.options = options;
     }
 
