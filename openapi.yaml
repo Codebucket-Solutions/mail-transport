@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  title: Email Gateway API
+  version: 1.0.0
+  description: Send emails (with optional CC/BCC and attachments) via the Engineering Fabric email gateway.
+
+servers:
+  - url: https://api.engineering-fabric.codebuckets.in
+
+paths:
+  /api/v1/email-gateway/send:
+    post:
+      summary: Send an email
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - senderId
+                - sourceEmailAddress
+                - destinationEmailAddresses
+                - subject
+                - content
+                - isHtml
+              properties:
+                senderId:
+                  type: string
+                  description: Your service’s sender identifier
+                sourceEmailAddress:
+                  type: string
+                  format: email
+                  description: The “from” email address
+                sourceName:
+                  type: string
+                  description: Optional display name for the sender
+                destinationEmailAddresses:
+                  type: string
+                  description: Comma-separated list of recipient addresses
+                carbonCopyEmailAddresses:
+                  type: string
+                  description: Comma-separated list of CC addresses
+                blindCarbonCopyEmailAddresses:
+                  type: string
+                  description: Comma-separated list of BCC addresses
+                subject:
+                  type: string
+                  description: Email subject line
+                content:
+                  type: string
+                  description: Email body (HTML or plain text)
+                isHtml:
+                  type: boolean
+                  description: Whether the content is HTML
+                attachments:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: One or more file attachments
+      responses:
+        '200':
+          description: Email sent successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Email sent"
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized (invalid or missing token)
+        '500':
+          description: Server error
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
