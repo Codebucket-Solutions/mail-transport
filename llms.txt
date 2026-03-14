@@ -1,0 +1,49 @@
+# @codebucket/mail-transport
+
+Nodemailer transport for the Codebucket email gateway.
+
+Primary docs:
+- README.md
+- AGENTS.md
+- openapi.yaml
+
+Exports:
+- createTransport(options)
+- MailTransport
+- TransportOptions
+
+Canonical usage:
+
+```ts
+import nodemailer from 'nodemailer';
+import { createTransport } from '@codebucket/mail-transport';
+
+const transporter = nodemailer.createTransport(createTransport({
+  url,
+  senderId,
+  accessToken,
+}));
+
+await transporter.sendMail({
+  from: { name: 'Support', address: 'support@example.com' },
+  to: 'user@example.com',
+  subject: 'Welcome',
+  text: 'Hello',
+});
+```
+
+Supported Nodemailer fields:
+- from
+- to
+- cc
+- bcc
+- subject
+- text
+- html
+- attachments
+
+Behavior notes:
+- If both html and text are provided, html wins.
+- Attachments support content as string, Buffer, readable stream, or local path.
+- Remote attachment URLs are not supported.
+- This package is a transport plugin, not a standalone sendMail helper.

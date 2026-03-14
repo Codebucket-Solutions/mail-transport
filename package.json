@@ -1,15 +1,34 @@
 {
   "name": "@codebucket/mail-transport",
-  "version": "1.0.4",
-  "description": "Custom Nodemailer transport ",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "version": "1.0.5",
+  "description": "Nodemailer transport for the Codebucket email gateway",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "AGENTS.md",
+    "llms.txt",
+    "openapi.yaml",
+    "examples"
+  ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "npm run build",
+    "prepack": "npm run build"
   },
   "keywords": [
     "nodemailer",
-    "transport"
+    "transport",
+    "email",
+    "codebucket"
   ],
   "author": "Your Name",
   "license": "MIT",
