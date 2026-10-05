@@ -134,8 +134,10 @@ function getAttachmentFilename(attachment: Mail.Attachment): string | undefined 
         return attachment.filename;
     }
 
-    if (attachment.path instanceof URL) {
-        return basename(normalizeLocalPath(attachment.path));
+    // Nodemailer 10 types `path` as a string, but callers may still pass a URL object at runtime.
+    const attachmentPath: unknown = attachment.path;
+    if (attachmentPath instanceof URL) {
+        return basename(normalizeLocalPath(attachmentPath));
     }
 
     if (typeof attachment.path === 'string' && attachment.path.length > 0) {
@@ -175,7 +177,7 @@ function appendAttachment(form: FormData, attachment: Mail.Attachment): void {
 
 export class MailTransport implements Transport {
     name = 'MailTransport';
-    version = '1.0.4';
+    version = '1.0.6';
 
     private options: TransportOptions;
 
